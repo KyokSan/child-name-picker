@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Wybór imienia dla córki</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Wybierz imię, które bardziej Ci odpowiada</h1>
+    <div id="name-picker" class="name-picker">
+      <button id="name1" class="name-button">Imię 1</button>
+      <span class="vs">VS</span>
+      <button id="name2" class="name-button">Imię 2</button>
+    </div>
+
+  <p id="remaining-count" class="remaining-names"></p>
+
+
+    <img src="baby.png" alt="Baby" class="baby-image" />
+
+    <div id="congrats" class="hidden">
+      <h2>Gratulacje! Wybrane imię to:</h2>
+      <div id="final-name" class="final-name"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</body>
+</html>
