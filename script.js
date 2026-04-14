@@ -1,7 +1,8 @@
 const remainingCount = document.getElementById("remaining-count");
 
 // List of names
-const names = [
+const NAME_LISTS = {
+  girl: [
   "Ada", "Adel", "Adela", "Adele", "Adelia", "Adelina", "Adriana", "Adrianna",
   "Agata", "Agnieszka", "Aleksandra", "Alia", "Alicja", "Alina",
   "Alisa", "Amanda", "Amelia", "Amina", "Amira", "Ana", "Anastazja", "Aneta", "Angelika", "Angelina", "Aniela", "Anita",
@@ -39,10 +40,26 @@ const names = [
   "Varvara", "Veronica", "Veronika", "Victoria", "Viktoria", "Viktoriia", "Violetta", "Vira",
   "Vivien", "Vivienne", "Waleria", "Wanda", "Wanessa", "Weronika", "Wiktoria",
   "Wioletta", "Zoe", "Zofia", "Zoja", "Zoriana", "Zosia", "Zoya", "Zuza", "Zuzanna"
-];
+],
+boy: [
+  "Nikodem", "Antoni", "Leon", "Jan", "Aleksander", "Franciszek", "Ignacy", "Stanisław", "Jakub",
+  "Mikołaj", "Maksymilian", "Filip", "Oliwier", "Wojciech", "Adam", "Marcel", "Szymon", "Tymon",
+  "Gabriel", "Julian", "Wiktor", "Kacper", "Oskar", "Michał", "Miłosz", "Igor", "Tymoteusz",
+  "Teodor", "Piotr", "Bruno", "Tadeusz", "Henryk", "Cezary", "Dawid", "Hubert", "Krzysztof",
+  "Milan", "Dominik", "Karol", "Natan", "Bartosz", "Artur", "Ksawery", "Mateusz", "Józef",
+  "Kazimierz", "Leo", "Leonard", "Fabian", "Daniel", "Mark", "Maciej", "Witold", "Tomasz",
+  "Borys", "Alan", "Kornel", "Feliks", "Kajetan", "Stefan", "Paweł", "Eryk", "Florian",
+  "Emil", "Kuba", "Mieszko", "Remigiusz", "Konstanty", "Kamil", "Bartłomiej", "Gustaw",
+  "Liam", "Olaf", "Grzegorz", "Adrian", "Jerzy", "Tobiasz", "David", "Ryszard", "Maksym",
+  "Patryk", "Damian", "Beniamin", "Robert", "Juliusz", "Sebastian", "Lucjan", "Alex",
+  "Nataniel", "Marcin", "Matvii", "Krystian", "Maurycy", "Olivier", "Jeremi", "Rafał",
+  "Aleks", "Alexander", "Artem", "Łukasz"
+]
+};
 
+let selectedGender = "girl";
 let currentName = null;
-let remainingNames = [...names];
+let remainingNames = [...NAME_LISTS[selectedGender]];
 
 // Get elements
 const name1Button = document.getElementById("name1");
@@ -70,7 +87,8 @@ function render() {
   const newName = getRandomName(currentName);
 
   // Update remaining count
-  remainingCount.textContent = `Pozostało imion do porównania: ${remainingNames.length}`;
+  remainingCount.textContent = `Pozostało imion do porównania: ${remainingNames.length + 1}`;
+
 
   if (!newName) {
     // No more names to compare against
@@ -132,5 +150,30 @@ function launchConfetti() {
   }, 250);
 }
 
+
+function resetPicker(gender) {
+  selectedGender = gender;
+  currentName = null;
+  remainingNames = [...NAME_LISTS[selectedGender]];
+
+  // Reset UI after a finished run
+  namePickerDiv.style.display = "";
+  congratsDiv.classList.add("hidden");
+  finalNameDiv.textContent = "";
+
+  // Optional: update page title
+  document.title = selectedGender === "girl"
+    ? "Wybór imienia dla córki"
+    : "Wybór imienia dla syna";
+
+  render();
+}
+
+document.querySelectorAll('input[name="gender"]').forEach((el) => {
+  el.addEventListener("change", (e) => resetPicker(e.target.value));
+});
+
+
 // Start the app
-render();
+resetPicker(selectedGender);
+
